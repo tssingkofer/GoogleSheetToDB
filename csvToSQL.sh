@@ -10,6 +10,6 @@ echo "use dash;" > ./insertSQL.sql
 IFS=","
 while read f1 f2 f3
 do
-      echo "insert into test (name, birthdate, sex) VALUES('$f1','$f2','$f3') WHERE NOT EXISTS (SELECT name FROM test WHERE name ='$f1') LIMIT 1;" >> ./insertSQL.sql
+      echo "insert into test (name, birthdate, sex) SELECT * FROM (SELECT '$f1','$f2','$f3') as tmp WHERE (Select count(*) from test where name='$f1') = '0';" >> ./insertSQL.sql
 done < TestSheet
 IFS=$OLDIFS
