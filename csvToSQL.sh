@@ -10,6 +10,6 @@ echo "use dash;" > ./insertSQL.sql
 IFS=","
 while read f1 f2 f3
 do
-      echo "insert into user (name, birthdate, sex) VALUES($f1,$f2,$f3);" >> ./insertSQL.sql
+      echo "insert into test (name, birthdate, sex) VALUES($f1,$f2,$f3) WHERE NOT EXISTS (SELECT name FROM test WHERE name =$f1;" >> ./insertSQL.sql
 done < TestSheet
 IFS=$OLDIFS
