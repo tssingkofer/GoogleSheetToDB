@@ -1,6 +1,6 @@
 use dash;
 create table if not exists trips 
-(pk int primary key unique not null auto_increment, trip_date DATE, start_address VARCHAR(50), 
+(id int primary key unique not null auto_increment, trip_date DATE, start_address VARCHAR(50), 
 start_weather VARCHAR(25), start_latitude DOUBLE(16,7), start_longitude DOUBLE(16,7), start_map VARCHAR(25), 
 trip_score TINYINT, trip_distance DOUBLE(16,6), engine_alerts TINYINT, brake_alerts TINYINT, accel_alerts TINYINT, 
 speed_alerts TINYINT, sms_alerts TINYINT, fuel_used DOUBLE(16,6), fuel_cost DOUBLE(16,8), end_address VARCHAR(50), 
