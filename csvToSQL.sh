@@ -5,6 +5,7 @@ curl -L "https://docs.google.com/spreadsheets/export?id=1sxIMF7H_ksLk34iFSgO8JFC
 
 echo
 echo
+echo > ./DashSheet
 echo "use dash;" > ./insertSQL.sql
 
 IFS=","
@@ -12,5 +13,5 @@ while read f1 f2 f3 f4 f5 f6 f7 f8 f9 f10 f11 f12 f13 f14 f15 f16 f17 f18
 do
       echo "insert into trips (trip_date, start_weather, start_latitude, start_longitude, start_map, trip_score, trip_distance, engine_alerts, brake_alerts, accel_alerts, speed_alerts, sms_alerts, fuel_used, fuel_cost, end_weather, end_latitude, end_longitude, end_map)
 	SELECT * FROM (SELECT curdate(), '$f1', $f2','$f3','$f4','$f5','$f6','$f7','$f8','$f9','$f10','$f11','$f12','$f13','$f14','$f16','$f17','$f18') as tmp WHERE (Select count(*) from trips where start_map='$f5') = '0';" >> ./insertSQL.sql
-done < {cat DashSheet; echo;}
+done < DashSheet
 IFS=$OLDIFS
