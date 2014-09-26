@@ -6,12 +6,39 @@ trip_score TINYINT, trip_distance DOUBLE(16,6), engine_alerts TINYINT, brake_ale
 speed_alerts TINYINT, sms_alerts TINYINT, fuel_used DOUBLE(16,6), fuel_cost DOUBLE(16,8), end_address VARCHAR(50), 
 end_weather VARCHAR(25), end_latitude DOUBLE(16,7), end_longitude DOUBLE(16,7), end_map VARCHAR(25));
 
-
+--*****************************************************************************************
 			
-insert into trips 
-(trip_date, start_address, start_weather, start_latitude, start_longitude, start_map, trip_score, 
-trip_distance, engine_alerts, brake_alerts, accel_alerts, speed_alerts, sms_alerts, fuel_used, 
-fuel_cost, end_address, end_weather, end_latitude, end_longitude, end_map)
-	SELECT * FROM 
-	(SELECT date(today), '$f1','$f2','$f3','$f4','$f5','$f6','$f7','$f8','$f9',
-	'$f10','$f11','$f12','$f13','$f14','$f15','$f16','$f17','$f18','$f19','$f20') as tmp;
+--in the last week, Tyler has driven ___ miles! If > 300, "he's traveling the world!, else: what a homebody. (maybe include one for an average week?)
+select sum(trip_distance) from trips where trip_date > curdate()- INTERVAL 7 DAY;
+
+--over the past week, Tyler has an average trip score of ___, Parents rest assured, he is a safe driver!
+select avg(trip_score) from trips where trip_date > curdate()- INTERVAL 7 DAY;
+
+--longest trip (week, month, year, YTD)
+select max(trip_distance) from trips where trip_date > curdate() - INTERVAL 7 DAY;
+select max(trip_distance) from trips where trip_date > curdate() - INTERVAL 30 DAY;
+select max(trip_distance) from trips where trip_date > curdate() - INTERVAL 365 DAY;
+select max(trip_distance) from trips where year(trip_date) = year(curdate());
+
+--total hard brakes(week, month, year)
+select sum(brake_alerts) from trips where trip_date > curdate() - INTERVAL 7 DAY;
+select sum(brake_alerts) from trips where trip_date > curdate() - INTERVAL 30 DAY;
+select sum(brake_alerts) from trips where trip_date > curdate() - INTERVAL 365 DAY;
+select sum(brake_alerts) from trips where year(trip_date) = year(curdate());
+ 
+--fuel used approx. AVG and TOTAL? (week, month, year)
+select avg(fuel_used) from trips where trip_date > curdate() - INTERVAL 7 DAY;
+select avg(fuel_used) from trips where trip_date > curdate() - INTERVAL 30 DAY;
+select avg(fuel_used) from trips where trip_date > curdate() - INTERVAL 365 DAY;
+select avg(fuel_used) from trips where year(trip_date) = year(curdate());
+
+select sum(fuel_used) from trips where trip_date > curdate() - INTERVAL 7 DAY;
+select sum(fuel_used) from trips where trip_date > curdate() - INTERVAL 30 DAY;
+select sum(fuel_used) from trips where trip_date > curdate() - INTERVAL 365 DAY;
+select sum(fuel_used) from trips where year(trip_date) = year(curdate());
+
+--Most trips (by wk, by month)
+select max((select count(*) from trips group by year(trip_date), month(trip_date)) --there's no way this is right
+
+--most common weather to start a trip with
+select start_weather from trips where 
