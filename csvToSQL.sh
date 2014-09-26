@@ -5,7 +5,7 @@ curl -L "https://docs.google.com/spreadsheets/export?id=1sxIMF7H_ksLk34iFSgO8JFC
 
 echo
 echo
-echo > ./DashSheet
+echo >> ./DashSheet
 echo "use dash;" > ./insertSQL.sql
 
 IFS=","
