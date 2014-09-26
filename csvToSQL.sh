@@ -18,7 +18,7 @@ IFS=","
 while read f1 f2 f3 f4 f5 f6 f7 f8 f9 f10 f11 f12 f13 f14 f15 f16 f17
 do
       echo "insert into trips (trip_date, start_weather, start_latitude, start_longitude, start_map, trip_score, trip_distance, engine_alerts, brake_alerts, accel_alerts, speed_alerts, sms_alerts, fuel_used, fuel_cost, end_weather, end_latitude, end_longitude, end_map)
-	SELECT * FROM (SELECT curdate(), '$f1' as sw,'$f2','$f3','$f4','$f5','$f6','$f7','$f8','$f9','$f10','$f11','$f12','$f13','$f14' as ew,'$f16','$f17') as tmp WHERE (Select count(*) from trips where start_map='$f5') = '0';" >> ./insertSQL.sql
+	SELECT * FROM (SELECT curdate(), '$f1' as sw,'$f2','$f3','$f4','$f5','$f6','$f7' as a,'$f8' as b,'$f9' as c,'$f10' as d,'$f11' as e,'$f12','$f13','$f14' as ew,'$f16','$f17') as tmp WHERE (Select count(*) from trips where start_map='$f5') = '0';" >> ./insertSQL.sql
 done < DashSheet #Read from csv file
 
 IFS=$OLDIFS #Return to original configuration
